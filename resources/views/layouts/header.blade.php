@@ -1,0 +1,57 @@
+<nav class="navbar navbar-trans container navbar-expand-lg navbar-dark">
+  <h1><a class="navbar-brand" href="#">Geadem</a></h1>
+
+    <div class="ico navbar-toggler border-0 p-0" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
+      <div class="toggle-icon">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+  </div>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      @if(auth()->check())
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Threads
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/threads">All</a>
+            <a class="dropdown-item" href="/threads?my=1">My</a>
+            <a class="dropdown-item" href="/threads?popular=1">Popular</a>
+            <a class="dropdown-item" href="/threads?unpopular=1">Unpopular</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/thread/create">Create new</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Channels
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            @foreach(\App\Channel::all() as $channel)
+              <a class="dropdown-item" href="/threads/{{$channel->slug}}">{{$channel->name}}</a>
+            @endforeach
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{auth()->user()->name}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/profile">Profile</a>
+            <a class="dropdown-item" href="/settings">Settings</a>
+            <a class="dropdown-item" href="/logout">LogOut</a>
+          </div>
+        </li>
+        @else
+        <li class="nav-item {{ (Request::is('/') ? 'active' : '') }}">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-light {{ (Request::is('login') ? 'active' : '') }}" href="/login">LogIn</a>
+        </li>
+      @endif
+    </ul>
+  </div>
+</nav>
