@@ -20,6 +20,8 @@ class CreateThreadsTable extends Migration
             $table->bigInteger('replies_count')->default(0);
             $table->text('body');
             $table->string('title', 240);
+            $table->string('access')->default('All');
+            $table->json('attachments')->nullable();
             $table->timestamps();
         });
     }

@@ -1,14 +1,14 @@
 <template>
   <div class="thread-show mb-5 p-3">
-    <h5>{{reply.owner.name}} <i class="fa fa-trash-o float-right" v-if="user.id == reply.user_id" @click="deleteReply"></i><i class="fa fa-pencil mr-2 float-right" v-if="user.id == reply.user_id" @click="editMode =! editMode"></i></h5>
+    <h5>{{reply.owner.name}} <i class="fa fa-trash-o float-right" @click="deleteReply"></i><i class="fa fa-pencil mr-2 float-right" @click="editMode =! editMode"></i></h5>
     <p v-if="!editMode">{{body}}</p>
     <div v-if="editMode">
       <div class="form-group">
         <textarea class="form-control" v-model="body"></textarea>
       </div>
       <div class="d-felx">
-        <button class="btn btn-sm btn-outline-success" @click="updateReply">Update</button>
-        <button class="btn-link border-0" @click="cancleEditMode">Cancle</button>
+        <button class="btn btn-sm btn-outline-success" @click="updateReply">Обновить</button>
+        <button class="btn-link border-0" @click="cancleEditMode">Отмена</button>
       </div>
     </div>
     <div class="d-flex justify-content-end" v-if="signIn">
@@ -25,7 +25,7 @@
       return {
         favorite: this.reply.IsFavorited,
         fCount: this.reply.favoritesCount,
-        user: window.App.user,
+        // user: window.App.user,
         editMode: false,
         body: this.reply.body
       }

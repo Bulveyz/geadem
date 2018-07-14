@@ -8,28 +8,36 @@ use Illuminate\Http\Request;
 
 class ReplyController extends Controller
 {
-  public function store(Thread $thread)
-  {
-    $reply = $thread->addReply([
-        'body' => \request('body'),
-        'user_id' => auth()->user()->id
-    ]);
 
-    if (\request()->expectsJson()) {
-      return $reply->load('owner');
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
-  }
 
-  public function update(Reply $reply)
-  {
-    $reply->update(['body' => \request('body')]);
-  }
+    public function store(Thread $thread)
+    {
+        $reply = $thread->addReply([
+            'body' => \request('body'),
+            'user_id' => auth()->user()->id
+        ]);
 
-  public function destroy(Reply $reply)
-  {
-    $reply->delete();
-    if (\request()->expectsJson()) {
-      return response(['status' => 'Reply deleted']);
+        if (\request()->expectsJson()) {
+            return $reply->load('owner');
+        }
     }
-  }
+
+    public function update(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+        $reply->update(['body' => \request('body')]);
+    }
+
+    public function destroy(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+        $reply->delete();
+        if (\request()->expectsJson()) {
+            return response(['status' => 'Reply deleted']);
+        }
+    }
 }

@@ -23,9 +23,18 @@ $(".toggle-icon").click(function() {
   $('.ico').toggleClass("pushed");
 });
 
+import CxltToastr from 'cxlt-vue2-toastr'
+
+Vue.use(CxltToastr, {
+  position: 'bottom right',
+  showDuration: 1000,
+  timeOut: 3000
+})
+
 
 Vue.component('thread', require('./components/Thread'));
 Vue.component('new-thread', require('./components/NewThread'));
+Vue.component('channel-password', require('./components/ChannelPassword'));
 
 const app = new Vue({
     el: '#app'

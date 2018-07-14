@@ -13,24 +13,24 @@
       @if(auth()->check())
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Threads
+            Записи
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/threads">All</a>
-            <a class="dropdown-item" href="/threads?my=1">My</a>
-            <a class="dropdown-item" href="/threads?popular=1">Popular</a>
-            <a class="dropdown-item" href="/threads?unpopular=1">Unpopular</a>
+            <a class="dropdown-item" href="/threads">Все</a>
+            <a class="dropdown-item" href="/threads?my=1">Мои</a>
+            <a class="dropdown-item" href="/threads?popular=1">Популярные</a>
+            <a class="dropdown-item" href="/threads?unpopular=1">Без ответов</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/thread/create">Create new</a>
+            <a class="dropdown-item" href="/thread/create">Создать</a>
           </div>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Channels
+            Каналы
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            @foreach(\App\Channel::all() as $channel)
-              <a class="dropdown-item" href="/threads/{{$channel->slug}}">{{$channel->name}}</a>
+            @foreach(\App\Channel::where('access', 'All')->get() as $channel)
+              <a class="dropdown-item" href="/channel/{{$channel->slug}}">{{$channel->name}}</a>
             @endforeach
           </div>
         </li>
@@ -39,9 +39,9 @@
             {{auth()->user()->name}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/profile">Profile</a>
-            <a class="dropdown-item" href="/settings">Settings</a>
-            <a class="dropdown-item" href="/logout">LogOut</a>
+            <a class="dropdown-item" href="/profile">Профиль</a>
+            <a class="dropdown-item" href="/settings">Настройки</a>
+            <a class="dropdown-item" href="/logout">Выйти</a>
           </div>
         </li>
         @else

@@ -5,17 +5,12 @@ use Illuminate\Support\Facades\Auth;
 
 class ThreadFilter extends Filter
 {
-  protected $filters = ['popular', 'my', 'unpopular'];
+  protected $filters = ['popular', 'unpopular'];
 
   public function popular()
   {
     $this->builder->getQuery()->orders = [];
     return $this->builder->orderBy('replies_count', 'desc');
-  }
-
-  public function my()
-  {
-    return $this->builder->where('user_id', \auth()->user()->id);
   }
 
   public function unpopular()
